@@ -9,4 +9,6 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: {{ .Values.result.port }}
-  type: ClusterIP
+      nodePort: {{ .Values.result.nodePort }}
+  type: {{ .Values.result.service.type }}
+

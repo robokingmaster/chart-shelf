@@ -1,5 +1,5 @@
 apiVersion: v2
 name: votingapp
-description: A Helm chart for Docker's example voting app deployment
+description: Deploying votingapp in Kubernetes
 version: 0.1.0
 appVersion: "1.0.0"

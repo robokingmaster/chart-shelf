@@ -1,0 +1,30 @@
+replicaCount: 1
+
+appenv:
+  appcolor: red
+
+image:
+  repository: robokingmaster/examples
+  tag: colorapp
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+
+ingress:
+  enabled: true
+  className: alb
+  annotations: 
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/group.name: frontend    
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/success-codes: "200,302,307"
+  hosts:
+    - host: colorapp.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []

@@ -6,10 +6,10 @@ Helm charts for quickly deploying sample applications
 #### Prepare Your Helm Charts
 Organize your charts in a directory structure like this:
 ```
-my-helm-repo/
+chart-shelf/
 ├── charts/
-│   ├── chart-one/
-│   └── chart-two/
+│   ├── colorapp/
+│   └── nginx/
 ```
 Each chart folder should follow the standard Helm chart structure (Chart.yaml, values.yaml, templates/, etc.).
 
@@ -17,20 +17,16 @@ Each chart folder should follow the standard Helm chart structure (Chart.yaml, v
 Use the Helm CLI to package each chart:
 
 ```
-cd charts
-helm package chart-one
-helm package chart-two
+helm package colorapp
+helm package nginx
 ```
-This will generate .tgz files like chart-one-0.1.0.tgz.
+This will generate .tgz files like colorapp-1.0.0.tgz.
 
 #### Create an index.yaml File
 Generate the Helm repository index file:
 ```
-helm repo index . --url https://<your-github-username>.github.io/<repo-name>
+helm repo index . --url https://robokingmaster.github.io/chart-shelf
 ```
-Replace the URL with the GitHub Pages URL where the repo will be hosted.
-
-move tgz and index.yaml file to home directory of repository
 
 ### Commit and push
 ```

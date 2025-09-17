@@ -7,6 +7,7 @@ spec:
     app: vote
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: {{ .Values.vote.port }}
-  type: ClusterIP
+      port: {{ .Values.vote.service.port }}
+      targetPort: {{ .Values.vote.containerPort }}
+      nodePort: {{ .Values.vote.nodePort }}
+  type: {{ .Values.vote.service.type }}

@@ -7,6 +7,6 @@ spec:
     app: db
   ports:
     - protocol: TCP
-      port: 5432
-      targetPort: {{ .Values.db.port }}
-  type: ClusterIP
+      port: {{ .Values.db.service.port }}
+      targetPort: {{ .Values.db.containerPort }}
+  type: {{ .Values.db.service.type }}

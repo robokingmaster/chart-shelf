@@ -10,5 +10,10 @@ helm repo update
 helm repo list
 helm search repo chartshelf
 ```
+
+#### Remove Repository
+```
+helm repo remove chartshelf 
+```
 #### Chart Specific Deployments Documents
 [colorapp](./colorapp/README.md)

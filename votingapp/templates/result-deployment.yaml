@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: result
 spec:
-  replicas: 1
+  replicas: {{ .Values.result.replicaCount }}
   selector:
     matchLabels:
       app: result
@@ -15,5 +15,6 @@ spec:
       containers:
         - name: result
           image: {{ .Values.result.image }}
+          imagePullPolicy: {{ .Values.result.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.result.port }}
+            - containerPort: {{ .Values.result.containerPort }}

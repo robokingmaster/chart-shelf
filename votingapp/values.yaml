@@ -1,20 +1,75 @@
 vote:
+  replicaCount: 1
   image: dockersamples/examplevotingapp_vote
-  port: 80
+  pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 31001
+  ingress:
+    enabled: False
+    className: alb
+    annotations: 
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/healthcheck-path: /
+      alb.ingress.kubernetes.io/group.name: frontend    
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/success-codes: "200,302,307"
+    hosts:
+      - host: castvote.example.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []  
 
 result:
+  replicaCount: 1
   image: dockersamples/examplevotingapp_result
-  port: 80
+  pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 31002
+  ingress:
+    enabled: False
+    className: alb
+    annotations: 
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/healthcheck-path: /
+      alb.ingress.kubernetes.io/group.name: frontend    
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/success-codes: "200,302,307"
+    hosts:
+      - host: voteresult.example.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []    
 
 worker:
   image: dockersamples/examplevotingapp_worker
+  pullPolicy: IfNotPresent
 
 redis:
   image: redis:alpine
-  port: 6379
-
+  pullPolicy: IfNotPresent
+  containerPort: 6379
+  service:
+    type: NodePort
+    port: 6379
+    nodePort: 31003
+  
 db:
   image: postgres:9.4
-  port: 5432
+  pullPolicy: IfNotPresent
+  containerPort: 5432
   postgresUser: postgres
   postgresPassword: postgres
+  service:
+    type: NodePort
+    port: 5432
+    nodePort: 31004

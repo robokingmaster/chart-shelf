@@ -24,7 +24,7 @@ helm install local-colorapp ./colorapp \
 ### Deploy using command values file
 Copy values.yaml file as my_values.yaml. Modify all the required values and add additional annotations if needed.
 ```
-helm install local-colorapp ./colorapp-f my_values.yaml
+helm install local-colorapp ./colorapp -f my_values.yaml
 ```
 
 To upgrade

@@ -56,11 +56,12 @@ chartshelf/colorapp     1.0.0           1.0.0           A Helm chart for deployi
 $ 
 ```
 
-#### Install Charts
+### Install Helm Charts
 Retrive the values file and update accordingly. 
 
+#### Install using values file
 ```
-helm inspect values chart-shelf/colorapp > colorapp.yaml
+helm inspect values chartshelf/colorapp > colorapp.yaml
 ```
 We can also add ACM certificate in annotation as or provide the TLS certificate
 ```
@@ -97,13 +98,25 @@ ingress:
 ```
 Using this values file lets install the helm chart
 ```
-helm install colorapp myrepo/colorapp --namespace colorapp --values colorapp.yaml
+helm install colorapp chartshelf/colorapp --namespace colorapp --values colorapp.yaml
 ```
 
-#### Uninstall Chart
+#### Install using command line paramaters
+```
+helm install local-colorapp ./colorapp \
+  --set appVersion=v1.0.0 \
+  --set service.type=ClusterIP \
+  --set service.port=8080 \
+  --set replicaCount=2 \
+  --set hosts.host=colorapp.example.com \
+  --set ingress.annotations."alb\\.ingress\\.kubernetes\\.io/load-balancer-name"="colorapp-alb"
+
+```
+
+### Uninstall Chart
 ```
 helm uninstall colorapp --namespace colorapp
-helm repo remove myrepo
+helm repo remove chartshelf
 ```
 ### Deploy using terraform
 Terraform resource to deploy this chart

@@ -9,5 +9,4 @@ spec:
     - protocol: TCP
       port: {{ .Values.vote.service.port }}
       targetPort: {{ .Values.vote.containerPort }}
-      nodePort: {{ .Values.vote.nodePort }}
   type: {{ .Values.vote.service.type }}

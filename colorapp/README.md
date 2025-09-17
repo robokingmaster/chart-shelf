@@ -44,11 +44,16 @@ There are multiple ways to deply the delm charts and passed additional configura
 #### Add the Repo to Helm
 On any machine, you can now add your repo:
 ```
-helm repo add chart-shelf https://robokingmaster.github.io/chart-shelf/
+helm repo add chartshelf https://robokingmaster.github.io/chart-shelf/
 helm repo update
 
 helm repo list
-helm search repo chart-shelf
+helm search repo chartshelf
+
+$ helm search repo chartshelf
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION                                      
+chartshelf/colorapp     1.0.0           1.0.0           A Helm chart for deploying colorapp in Kubernetes
+$ 
 ```
 
 #### Install Charts

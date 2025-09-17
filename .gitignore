@@ -1,10 +1,4 @@
 
-# Ignore Helm chart packages
-*.tgz
-
-# Ignore Helm repository index file
-index.yaml
-
 # Ignore temporary files
 *.bak
 *.tmp

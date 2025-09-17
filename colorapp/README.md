@@ -40,6 +40,7 @@ helm uninstall local-colorapp
 ## Deploy helm chart
 There are multiple ways to deply the delm charts and passed additional configuration pramaters while deploying. For example additional ingress annotation can be provided while deploying this helm chart. [Supported Annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/#annotations)
 ### From command line
+
 #### Add the Repo to Helm
 On any machine, you can now add your repo:
 ```

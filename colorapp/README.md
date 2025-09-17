@@ -47,6 +47,7 @@ On any machine, you can now add your repo:
 helm repo add chart-shelf https://robokingmaster.github.io/chart-shelf/
 helm repo update
 
+helm repo list
 helm search repo chart-shelf
 ```
 

@@ -17,4 +17,4 @@ spec:
           image: {{ .Values.redis.image }}
           imagePullPolicy: {{ .Values.redis.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.redis.port }}
+            - containerPort: {{ .Values.redis.containerPort }}

@@ -2,13 +2,13 @@ vote:
   replicaCount: 1
   image: dockersamples/examplevotingapp_vote
   pullPolicy: IfNotPresent
-  port: 80
+  containerPort: 80
   service:
     type: NodePort
     port: 80
-    nodePort: 31000
+    nodePort: 31001
   ingress:
-    enabled: false
+    enabled: False
     className: alb
     annotations: 
       alb.ingress.kubernetes.io/scheme: internet-facing
@@ -28,13 +28,13 @@ result:
   replicaCount: 1
   image: dockersamples/examplevotingapp_result
   pullPolicy: IfNotPresent
-  port: 80
+  containerPort: 80
   service:
     type: NodePort
     port: 80
-    nodePort: 31001
+    nodePort: 31002
   ingress:
-    enabled: false
+    enabled: False
     className: alb
     annotations: 
       alb.ingress.kubernetes.io/scheme: internet-facing
@@ -57,11 +57,19 @@ worker:
 redis:
   image: redis:alpine
   pullPolicy: IfNotPresent
-  port: 6379
-
+  containerPort: 6379
+  service:
+    type: NodePort
+    port: 6379
+    nodePort: 31003
+  
 db:
   image: postgres:9.4
   pullPolicy: IfNotPresent
-  port: 5432
+  containerPort: 5432
   postgresUser: postgres
   postgresPassword: postgres
+  service:
+    type: NodePort
+    port: 5432
+    nodePort: 31004

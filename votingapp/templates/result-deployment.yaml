@@ -17,4 +17,4 @@ spec:
           image: {{ .Values.result.image }}
           imagePullPolicy: {{ .Values.result.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.result.port }}
+            - containerPort: {{ .Values.result.containerPort }}

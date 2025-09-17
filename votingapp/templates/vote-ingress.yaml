@@ -23,7 +23,7 @@ spec:
               service:
                 name: vote
                 port:
-                  number: {{ .Values.vote.port }}
+                  number: {{ $.Values.vote.containerPort }}
          {{- end }}
     {{- end }}
   {{- if .Values.vote.ingress.tls }}

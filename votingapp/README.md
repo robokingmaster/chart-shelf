@@ -17,7 +17,7 @@ helm install local-votingapp ./votingapp
 
 ### Deploy using command line paramaters and ingress
 ```
-helm install local-votingapp ./votingapp \  
+helm install local-votingapp ./votingapp \
   --set vote.service.type=ClusterIP \
   --set vote.service.port=80 \
   --set vote.replicaCount=2 \

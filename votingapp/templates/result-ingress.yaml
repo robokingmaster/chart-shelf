@@ -23,7 +23,7 @@ spec:
               service:
                 name: result
                 port:
-                  number: {{ .Values.result.port }}
+                  number: {{ $.Values.result.containerPort }}
           {{- end }}
     {{- end }}
   {{- if .Values.result.ingress.tls }}

@@ -7,7 +7,7 @@ spec:
     app: vote
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: {{ .Values.vote.port }}
+      port: {{ .Values.vote.service.port }}
+      targetPort: {{ .Values.vote.containerPort }}
       nodePort: {{ .Values.vote.nodePort }}
   type: {{ .Values.vote.service.type }}

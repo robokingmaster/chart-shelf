@@ -17,4 +17,4 @@ spec:
           image: {{ .Values.vote.image }}
           imagePullPolicy: {{ .Values.vote.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.vote.port }}
+            - containerPort: {{ .Values.vote.containerPort }}

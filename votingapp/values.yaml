@@ -1,0 +1,20 @@
+vote:
+  image: dockersamples/examplevotingapp_vote
+  port: 80
+
+result:
+  image: dockersamples/examplevotingapp_result
+  port: 80
+
+worker:
+  image: dockersamples/examplevotingapp_worker
+
+redis:
+  image: redis:alpine
+  port: 6379
+
+db:
+  image: postgres:9.4
+  port: 5432
+  postgresUser: postgres
+  postgresPassword: postgres

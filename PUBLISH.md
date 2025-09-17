@@ -9,7 +9,7 @@ Organize your charts in a directory structure like this:
 chart-shelf/
 ├── charts/
 │   ├── colorapp/
-│   └── nginx/
+│   └── votingapp/
 ```
 Each chart folder should follow the standard Helm chart structure (Chart.yaml, values.yaml, templates/, etc.).
 
@@ -18,7 +18,7 @@ Use the Helm CLI to package each chart:
 
 ```
 helm package colorapp
-helm package nginx
+helm package votingapp
 ```
 This will generate .tgz files like colorapp-1.0.0.tgz.
 

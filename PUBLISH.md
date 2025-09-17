@@ -25,7 +25,7 @@ This will generate .tgz files like colorapp-1.0.0.tgz.
 #### Create an index.yaml File
 Generate the Helm repository index file:
 ```
-helm repo index . --url https://robokingmaster.github.io/chart-shelf
+helm repo index . --url https://robokingmaster.github.io/chart-shelf/
 ```
 
 ### Commit and push

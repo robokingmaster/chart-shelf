@@ -10,5 +10,5 @@ helm repo update
 helm repo list
 helm search repo chartshelf
 ```
-#### Chart Specific Deployments
+#### Chart Specific Deployments Documents
 [colorapp](./colorapp/README.md)

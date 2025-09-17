@@ -6,7 +6,6 @@ vote:
   service:
     type: NodePort
     port: 80
-    nodePort: 31001
   ingress:
     enabled: False
     className: alb
@@ -61,7 +60,6 @@ redis:
   service:
     type: NodePort
     port: 6379
-    nodePort: 31003
   
 db:
   image: postgres:9.4
@@ -72,4 +70,3 @@ db:
   service:
     type: NodePort
     port: 5432
-    nodePort: 31004

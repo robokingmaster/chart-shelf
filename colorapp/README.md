@@ -39,8 +39,66 @@ helm uninstall local-colorapp
 
 ## Deploy helm chart
 There are multiple ways to deply the delm charts and passed additional configuration pramaters while deploying. For example additional ingress annotation can be provided while deploying this helm chart. [Supported Annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/#annotations)
+### From command line
+#### Add the Repo to Helm
+On any machine, you can now add your repo:
+```
+helm repo add chart-shelf https://robokingmaster.github.io/chart-shelf/
+helm repo update
 
-## Deploy using terraform
+helm search repo chart-shelf
+```
+
+#### Install Charts
+Retrive the values file and update accordingly. 
+
+```
+helm inspect values chart-shelf/colorapp > colorapp.yaml
+```
+We can also add ACM certificate in annotation as or provide the TLS certificate
+```
+replicaCount: 1
+
+appenv:
+  appcolor: red
+
+image:
+  repository: robokingmaster/examples
+  tag: colorapp
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/group.name: frontend
+    alb.ingress.kubernetes.io/certificate-arn: <ACM ARN Endpoint>
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+  hosts:
+    - host: colorapp.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+```
+Using this values file lets install the helm chart
+```
+helm install colorapp myrepo/colorapp --namespace colorapp --values colorapp.yaml
+```
+
+#### Uninstall Chart
+```
+helm uninstall colorapp --namespace colorapp
+helm repo remove myrepo
+```
+### Deploy using terraform
 Terraform resource to deploy this chart
 ```
 resource "helm_release" "color_app" {

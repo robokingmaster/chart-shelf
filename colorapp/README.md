@@ -6,6 +6,7 @@ To create new helm chart create its structure via simple helm command. Make sure
 [Install Helm](https://helm.sh/docs/intro/install/)
 ```
 helm create colorapp
+
 ```
 
 ## Test Helm chart
@@ -17,7 +18,7 @@ helm install local-colorapp ./colorapp
 
 ```
 
-### Deploy using command line paramaters and ingress
+### Deploy using command line paramaters with ingress
 ```
 helm install local-colorapp ./colorapp \
   --set appVersion=v1.0.0 \

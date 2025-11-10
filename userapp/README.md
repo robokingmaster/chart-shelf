@@ -1,53 +1,50 @@
-# Add new charts into this repository
-This file shows the steps to add new chart into this repository
-
+NodeJs and React web applciation with postgres database
+---
 ## Create new helm chart
 To create new helm chart create its structure via simple helm command. Make sure you have installed helm. 
 [Install Helm](https://helm.sh/docs/intro/install/)
 ```
-helm create votingapp
+helm create userapp
 ```
+
 ## Test Helm chart
 Deploy locally to test if its workign as expected
+
 ### Deploy using command line with minimal parameters
 ```
-helm install local-votingapp ./votingapp
+helm install local-colorapp ./colorapp
 
 ```
 
 ### Deploy using command line paramaters and ingress
 ```
-helm install local-votingapp ./votingapp \
-  --set vote.service.type=ClusterIP \
-  --set vote.service.port=80 \
-  --set vote.replicaCount=2 \
-  --set vote.ingress.enabled=true \
-  --set vote.hosts.host=votingapp.example.com \
-  --set result.service.type=ClusterIP \
-  --set result.service.port=80 \
-  --set result.replicaCount=2 \
-  --set result.ingress.enabled=true \
-  --set result.host=votingresult.example.com 
+helm install local-colorapp ./colorapp \
+  --set appVersion=v1.0.0 \
+  --set service.type=ClusterIP \
+  --set service.port=8080 \
+  --set replicaCount=2 \
+  --set ingress.enabled=true \
+  --set hosts.host=colorapp.example.com \
+  --set ingress.annotations."alb\\.ingress\\.kubernetes\\.io/load-balancer-name"="colorapp-alb"
 
 ```
 
 ### Deploy using command values file
 Copy values.yaml file as my_values.yaml. Modify all the required values and add additional annotations if needed.
-
 ```
 cp values.yaml my_values.yaml
 
-helm install local-votingapp ./votingapp -f my_values.yaml
+helm install local-colorapp ./colorapp -f my_values.yaml
 ```
 
 To upgrade
 ```
-helm upgrade local-votingapp ./votingapp
+helm upgrade local-colorapp ./colorapp
 ```
 
 To delete
 ```
-helm uninstall local-votingapp
+helm uninstall local-colorapp
 ```
 
 ## Deploy helm chart
@@ -65,15 +62,16 @@ helm search repo chartshelf
 
 $ helm search repo chartshelf
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION                                      
-chartshelf/votingapp     1.0.0           1.0.0           A Helm chart for deploying votingapp in Kubernetes
+chartshelf/colorapp     1.0.0           1.0.0           A Helm chart for deploying colorapp in Kubernetes
 $ 
 ```
+
 ### Install Helm Charts
 Retrive the values file and update accordingly. 
 
 #### Install using values file
 ```
-helm inspect values chartshelf/votingapp > votingapp.yaml
+helm inspect values chartshelf/colorapp > colorapp.yaml
 ```
 We can also add ACM certificate in annotation as or provide the TLS certificate
 ```
@@ -84,7 +82,7 @@ appenv:
 
 image:
   repository: robokingmaster/examples
-  tag: votingapp
+  tag: colorapp
   pullPolicy: IfNotPresent
 
 service:
@@ -102,7 +100,7 @@ ingress:
     alb.ingress.kubernetes.io/certificate-arn: <ACM ARN Endpoint>
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
   hosts:
-    - host: votingapp.example.com
+    - host: colorapp.example.com
       paths:
         - path: /
           pathType: Prefix
@@ -110,33 +108,33 @@ ingress:
 ```
 Using this values file lets install the helm chart
 ```
-helm install votingapp chartshelf/votingapp --namespace votingapp --values votingapp.yaml
+helm install colorapp chartshelf/colorapp --namespace colorapp --values colorapp.yaml
 ```
 
 #### Install using command line paramaters
 ```
-helm install local-votingapp ./votingapp \
+helm install local-colorapp ./colorapp \
   --set appVersion=v1.0.0 \
   --set service.type=ClusterIP \
   --set service.port=8080 \
   --set replicaCount=2 \
-  --set hosts.host=votingapp.example.com \
-  --set ingress.annotations."alb\\.ingress\\.kubernetes\\.io/load-balancer-name"="votingapp-alb"
+  --set hosts.host=colorapp.example.com \
+  --set ingress.annotations."alb\\.ingress\\.kubernetes\\.io/load-balancer-name"="colorapp-alb"
 
 ```
 
 ### Uninstall Chart
 ```
-helm uninstall votingapp --namespace votingapp
+helm uninstall colorapp --namespace colorapp
 helm repo remove chartshelf
 ```
 ### Deploy using terraform
 Terraform resource to deploy this chart
 ```
-resource "helm_release" "voting_app" {
-  name       = "votingapp"
+resource "helm_release" "color_app" {
+  name       = "colorapp"
   repository = "https://robokingmaster.github.io/chart-shelf"
-  chart      = "votingapp"  
+  chart      = "colorapp"  
 
   set {
     name  = "replicaCount:"

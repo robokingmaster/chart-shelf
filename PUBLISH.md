@@ -1,8 +1,6 @@
 # helm-charts
 Helm charts for quickly deploying sample applications
 
-### Publishing charts in github
-
 #### Prepare Your Helm Charts
 Organize your charts in a directory structure like this:
 ```

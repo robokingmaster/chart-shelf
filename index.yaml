@@ -3,9 +3,9 @@ entries:
   colorapp:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-09-17T22:37:46.039309+05:30"
-    description: Deploying colorapp in Kubernetes
-    digest: c9b77fb9bf6ac8f8389fd0afe74f9a172a8f07ea18ecfadc5325140794ae44a1
+    created: "2025-11-11T12:42:07.164988+05:30"
+    description: Sample color application deployment
+    digest: 9e1d8d54f6574db373a2802f33e6f2f6a2bfd7b0680774ef161d49bee7ee5ef3
     name: colorapp
     type: application
     urls:
@@ -14,20 +14,11 @@ entries:
   votingapp:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-09-17T22:37:46.040612+05:30"
-    description: Deploying votingapp in Kubernetes
-    digest: 1602fd9364b84c3700d02045170695f9bd94cb3519d71ebe09fb344d4992a1c9
+    created: "2025-11-11T12:42:07.165424+05:30"
+    description: Sample voting app deployment
+    digest: 50a208255a8eb8fe62b4d6ec5496b9b19c1dce05f4ec967e9c3e1933f0ba858b
     name: votingapp
     urls:
     - https://robokingmaster.github.io/chart-shelf/votingapp-1.0.0.tgz
     version: 1.0.0
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2025-09-17T22:37:46.039878+05:30"
-    description: Deploying votingapp in Kubernetes
-    digest: d421d7fbb10508f4a4c5e98f9c914d34fd2a825d2ca53d53f642e0336cc95c22
-    name: votingapp
-    urls:
-    - https://robokingmaster.github.io/chart-shelf/votingapp-0.1.0.tgz
-    version: 0.1.0
-generated: "2025-09-17T22:37:46.038681+05:30"
+generated: "2025-11-11T12:42:07.164525+05:30"

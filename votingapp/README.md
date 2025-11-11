@@ -77,36 +77,78 @@ helm inspect values chartshelf/votingapp > votingapp.yaml
 ```
 We can also add ACM certificate in annotation as or provide the TLS certificate
 ```
-replicaCount: 1
+vote:
+  replicaCount: 1
+  image: dockersamples/examplevotingapp_vote
+  pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: NodePort
+    port: 80
+  ingress:
+    enabled: False
+    className: alb
+    annotations: 
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/healthcheck-path: /
+      alb.ingress.kubernetes.io/group.name: frontend    
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/success-codes: "200,302,307"
+    hosts:
+      - host: castvote.example.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []  
 
-appenv:
-  appcolor: red
+result:
+  replicaCount: 1
+  image: dockersamples/examplevotingapp_result
+  pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 31002
+  ingress:
+    enabled: False
+    className: alb
+    annotations: 
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/healthcheck-path: /
+      alb.ingress.kubernetes.io/group.name: frontend    
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/success-codes: "200,302,307"
+    hosts:
+      - host: voteresult.example.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []    
 
-image:
-  repository: robokingmaster/examples
-  tag: votingapp
+worker:
+  image: dockersamples/examplevotingapp_worker
   pullPolicy: IfNotPresent
 
-service:
-  type: NodePort
-  port: 80
-
-ingress:
-  enabled: true
-  className: alb
-  annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/healthcheck-path: /health
-    alb.ingress.kubernetes.io/group.name: frontend
-    alb.ingress.kubernetes.io/certificate-arn: <ACM ARN Endpoint>
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
-  hosts:
-    - host: votingapp.example.com
-      paths:
-        - path: /
-          pathType: Prefix
-  tls: []
+redis:
+  image: redis:alpine
+  pullPolicy: IfNotPresent
+  containerPort: 6379
+  service:
+    type: NodePort
+    port: 6379
+  
+db:
+  image: postgres:9.4
+  pullPolicy: IfNotPresent
+  containerPort: 5432
+  postgresUser: postgres
+  postgresPassword: postgres
+  service:
+    type: NodePort
+    port: 5432
 ```
 Using this values file lets install the helm chart
 ```

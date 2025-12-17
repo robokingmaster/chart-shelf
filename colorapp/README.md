@@ -83,8 +83,8 @@ appenv:
   appcolor: red
 
 image:
-  repository: robokingmaster/examples
-  tag: colorapp
+  repository: robokingmaster/colorapp
+  tag: 1.0.0
   pullPolicy: IfNotPresent
 
 service:
